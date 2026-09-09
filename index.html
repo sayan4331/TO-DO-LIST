@@ -1,16 +1,512 @@
-<!-- Header -->
-<header class="app-header">
+<!DOCTYPE html>
+<html lang="en">
 
-  <div class="logo">
-    <div class="logo-icon">✦</div>
-    <h1>Taskflow</h1>
-  </div>
+<head>
 
-  <nav class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-  </nav>
+    <meta charset="UTF-8">
 
-  <p class="subtitle">Organize your day, accomplish your goals</p>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-</header>
+    <meta
+        name="description"
+        content="Taskflow is a beautiful premium to-do list app to organize your tasks with priorities, categories, and due dates."
+    >
+
+    <title>Taskflow — Premium To-Do List</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link
+        rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- =========================
+         Animated Background
+    ========================== -->
+
+    <div class="bg-gradient" aria-hidden="true">
+
+        <div class="orb"></div>
+
+        <div class="orb"></div>
+
+        <div class="orb"></div>
+
+    </div>
+
+
+    <!-- =========================
+         App Container
+    ========================== -->
+
+    <div class="app-container">
+
+
+        <!-- =========================
+             Header
+        ========================== -->
+
+        <header class="app-header">
+
+            <div class="header-top">
+
+                <!-- Logo -->
+
+                <a href="index.html" class="app-logo">
+
+                    <div class="logo-icon">
+                        ✦
+                    </div>
+
+                    <h1>
+                        Taskflow
+                    </h1>
+
+                </a>
+
+
+                <!-- Navigation -->
+
+                <nav class="main-nav">
+
+                    <a
+                        href="index.html"
+                        class="active"
+                    >
+                        Home
+                    </a>
+
+                    <a href="about.html">
+                        About
+                    </a>
+
+                </nav>
+
+            </div>
+
+
+            <p class="subtitle">
+                Organize your day, accomplish your goals
+            </p>
+
+        </header>
+
+
+        <!-- =========================
+             Stats Bar
+        ========================== -->
+
+        <div
+            class="stats-bar"
+            id="statsBar"
+        >
+
+            <div class="stat-card accent">
+
+                <div
+                    class="stat-value"
+                    id="statTotal"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Total
+                </div>
+
+            </div>
+
+
+            <div class="stat-card success">
+
+                <div
+                    class="stat-value"
+                    id="statCompleted"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Done
+                </div>
+
+            </div>
+
+
+            <div class="stat-card warning">
+
+                <div
+                    class="stat-value"
+                    id="statPending"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Pending
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             Progress Ring
+        ========================== -->
+
+        <div class="progress-container">
+
+            <div class="progress-ring-wrapper">
+
+                <svg
+                    class="progress-ring"
+                    width="56"
+                    height="56"
+                    viewBox="0 0 56 56"
+                >
+
+                    <defs>
+
+                        <linearGradient
+                            id="progressGradient"
+                            x1="0%"
+                            y1="0%"
+                            x2="100%"
+                            y2="100%"
+                        >
+
+                            <stop
+                                offset="0%"
+                                stop-color="#6c5ce7"
+                            />
+
+                            <stop
+                                offset="100%"
+                                stop-color="#a855f7"
+                            />
+
+                        </linearGradient>
+
+                    </defs>
+
+
+                    <circle
+                        class="progress-ring-bg"
+                        cx="28"
+                        cy="28"
+                        r="22"
+                        fill="none"
+                        stroke-width="5"
+                    />
+
+
+                    <circle
+                        class="progress-ring-fill"
+                        id="progressRing"
+                        cx="28"
+                        cy="28"
+                        r="22"
+                        fill="none"
+                        stroke-width="5"
+                        stroke-dasharray="138.23"
+                        stroke-dashoffset="138.23"
+                    />
+
+                </svg>
+
+
+                <span
+                    class="progress-percentage"
+                    id="progressPercent"
+                >
+                    0%
+                </span>
+
+            </div>
+
+
+            <div class="progress-info">
+
+                <div class="progress-title">
+                    Daily Progress
+                </div>
+
+                <div
+                    class="progress-detail"
+                    id="progressDetail"
+                >
+                    No tasks yet — add one to start!
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             Input Area
+        ========================== -->
+
+        <div class="input-area">
+
+            <div class="input-row">
+
+                <input
+                    type="text"
+                    id="taskInput"
+                    placeholder="What needs to be done?"
+                    autocomplete="off"
+                    aria-label="New task text"
+                >
+
+
+                <button
+                    class="btn-add"
+                    id="btnAdd"
+                    aria-label="Add task"
+                >
+
+                    <span>
+                        ＋
+                    </span>
+
+                    Add
+
+                </button>
+
+            </div>
+
+
+            <div class="input-options">
+
+                <label>
+                    Priority:
+                </label>
+
+
+                <button
+                    class="priority-btn active low"
+                    data-priority="low"
+                    id="prioLow"
+                >
+                    Low
+                </button>
+
+
+                <button
+                    class="priority-btn"
+                    data-priority="medium"
+                    id="prioMedium"
+                >
+                    Medium
+                </button>
+
+
+                <button
+                    class="priority-btn"
+                    data-priority="high"
+                    id="prioHigh"
+                >
+                    High
+                </button>
+
+
+                <select
+                    class="category-select"
+                    id="categorySelect"
+                    aria-label="Category"
+                >
+
+                    <option value="">
+                        No Category
+                    </option>
+
+                    <option value="work">
+                        💼 Work
+                    </option>
+
+                    <option value="personal">
+                        🏠 Personal
+                    </option>
+
+                    <option value="health">
+                        💪 Health
+                    </option>
+
+                    <option value="study">
+                        📚 Study
+                    </option>
+
+                    <option value="finance">
+                        💰 Finance
+                    </option>
+
+                    <option value="social">
+                        👥 Social
+                    </option>
+
+                </select>
+
+
+                <input
+                    type="date"
+                    class="due-date-input"
+                    id="dueDateInput"
+                    aria-label="Due date"
+                >
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             Filters Bar
+        ========================== -->
+
+        <div
+            class="filters-bar"
+            id="filtersBar"
+        >
+
+            <button
+                class="filter-btn active"
+                data-filter="all"
+                id="filterAll"
+            >
+
+                All
+
+                <span
+                    class="count"
+                    id="countAll"
+                >
+                    0
+                </span>
+
+            </button>
+
+
+            <button
+                class="filter-btn"
+                data-filter="active"
+                id="filterActive"
+            >
+
+                Active
+
+                <span
+                    class="count"
+                    id="countActive"
+                >
+                    0
+                </span>
+
+            </button>
+
+
+            <button
+                class="filter-btn"
+                data-filter="completed"
+                id="filterCompleted"
+            >
+
+                Completed
+
+                <span
+                    class="count"
+                    id="countCompleted"
+                >
+                    0
+                </span>
+
+            </button>
+
+
+            <div class="search-input-wrapper">
+
+                <span class="search-icon">
+                    🔍
+                </span>
+
+                <input
+                    type="text"
+                    class="search-input"
+                    id="searchInput"
+                    placeholder="Search tasks..."
+                    aria-label="Search tasks"
+                >
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             Task List
+        ========================== -->
+
+        <div
+            class="task-list"
+            id="taskList"
+        ></div>
+
+
+    </div>
+
+
+    <!-- =========================
+         Toast Container
+    ========================== -->
+
+    <div
+        class="toast-container"
+        id="toastContainer"
+        aria-live="polite"
+    ></div>
+
+
+    <!-- =========================
+         Keyboard Hints
+    ========================== -->
+
+    <div
+        class="kbd-hint"
+        aria-hidden="true"
+    >
+
+        <span>
+            <kbd>Enter</kbd>
+            Add task
+        </span>
+
+        <span>
+            <kbd>Ctrl+Z</kbd>
+            Undo
+        </span>
+
+        <span>
+            <kbd>/</kbd>
+            Search
+        </span>
+
+    </div>
+
+
+    <!-- JavaScript -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
